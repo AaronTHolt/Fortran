@@ -3,8 +3,6 @@
 
 program test
   implicit none
-  !real, dimension(2:,3:), allocatable :: A, B
-  !real, dimension(2:,6:), allocatable :: C
   real, allocatable :: A(:,:), B(:,:)
   real, allocatable :: C(:,:)
   integer :: rowsA, rowsB, rowsC, colsA, colsB, colsC, i, j
