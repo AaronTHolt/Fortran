@@ -1,16 +1,23 @@
 #makes the test_matrix_ops program
 
-test : test_matrix_ops.o matrix_ops.o
-	ifort -o test test_matrix_ops.o matrix_ops.o
+#Macros
+Comp = ifort
+FFlAGS = -O2
+objects = test_matrix_ops.o matrix_ops.o
+
+#makefile
+test : $(objects)
+	ifort -o test $(objects)
 
 test_matrix_ops.o : test_matrix_ops.f90 matrix_ops.mod
-	ifort -O2 -c test_matrix_ops.f90
+	$(Comp) $(FFLAGS) -c test_matrix_ops.f90
 
 matrix_ops.mod : matrix_ops.f90 matrix_ops.o
-	ifort -O2 -c matrix_ops.f90
+	$(Comp) $(FFLAGS) -c matrix_ops.f90
 
 matrix_ops.o : matrix_ops.f90
-	ifort -O2 -c matrix_ops.f90
+	$(Comp) $(FFLAGS) -c matrix_ops.f90
 
 clean:
-	rm test test_matrix_ops.o matrix_ops.mod matrix_ops.o
+	rm test matrix_ops.mod
+	rm $(objects)
