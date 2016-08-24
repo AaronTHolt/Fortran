@@ -15,9 +15,15 @@ test_matrix_ops.o : test_matrix_ops.f90 matrix_ops.mod
 matrix_ops.mod : matrix_ops.f90 matrix_ops.o
 	$(Comp) $(FFLAGS) -c matrix_ops.f90
 
-matrix_ops.o : matrix_ops.f90
+matrix_ops.o : matrix_ops.f90 types.mod
 	$(Comp) $(FFLAGS) -c matrix_ops.f90
 
+types.mod : types.f90 types.o
+	$(Comp) $(FFLAGS) -c types.f90
+
+types.o : types.f90
+	$(Comp) $(FFLAGS) -c types.f90
+
 clean:
-	rm test matrix_ops.mod
+	rm test matrix_ops.mod types.mod
 	rm $(objects)
