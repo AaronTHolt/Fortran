@@ -101,6 +101,37 @@ subroutine allocMatrixType(M, r, c)
 
 end subroutine allocMatrixType
 
-! subroutine kronProd()
+subroutine kronProd(A, B, kp)
+  ! Computes the kronecker product of matrix types A and B
+  use types
+  implicit none
+  type(matrix), intent(in) :: A, B
+  type(matrix), intent(inout) :: kp
+  ! type(matrix) :: temp
+  integer :: ai, aj, bi, bj
+
+  ! call allocMatrixType(temp, B%rows, B%cols)
+
+  ! kp%rows = A%rows*B%rows
+  ! kp%cols = A%cols*B%cols
+  call allocMatrixType(kp, A%rows*B%rows, A%cols*B%cols)
+
+  ! Calc knonecker product
+  ! Loop over A
+  do aj=1,A%cols
+    do ai=1,A%rows
+      ! Loop over B
+      do bj=1:B%cols
+        do bi=1:B%rows
+          i = (ai-1)*B%rows + bi
+          j = (aj-1)*B%cols + bj
+          kp%mat(i,j) = A%mat(ai,aj)*B%mat(bi,bj)
+        end do
+      end do
+    end do
+  end do
+
+end subroutine kronProd()
+
 
 end module
