@@ -32,9 +32,8 @@ subroutine hMatrixConcat(A1, rA, cA, B1, rB, cB, C1, rC, cC)
 end subroutine hMatrixConcat
 
 subroutine hMatrixConcat2(A, B, C)
-  ! Takes structs A and B and horizontally concatenates their matrices
+  ! Takes matrix type A and B and horizontally concatenates their matrices
   ! Matrices in A and B must have the same number of rows
-  ! Matrices in A, B, and C must be allocated
   use types
   implicit none
 
@@ -43,10 +42,7 @@ subroutine hMatrixConcat2(A, B, C)
   integer :: i, j
 
   ! C metadata
-  C%rows = A%rows
-  C%cols = A%cols + B%cols
-
-  allocate( C%mat(C%rows,C%cols) )
+  call allocMatrixType(C, A%rows, A%cols + B%cols)
 
   ! Concatenate matrices A%mat and B%mat
   do j=1,A%cols
@@ -86,6 +82,18 @@ subroutine allocMatrixType(M, r, c)
   allocate( M%mat(r,c) )
 
 end subroutine allocMatrixType
+
+
+subroutine deallocMatrixType(M)
+  ! deallocate array in matrix type
+  use types
+  implicit none
+  type(matrix), intent(out) :: M
+
+  if (allocated(M%mat)) deallocate(M%mat)
+
+end subroutine deallocMatrixType
+
 
 subroutine kronProd(A, B, kp)
   ! Computes the kronecker product of matrix types A and B
