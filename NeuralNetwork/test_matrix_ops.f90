@@ -9,10 +9,9 @@ program test
   cc = 3
 
   call allocMatrix2D(mm, rr, cc)
-
   call test_hMatrixConcat()
-
   call test_hMatrixConcat2()
+  call test_kronProd()
 
 
 
@@ -96,6 +95,29 @@ subroutine test_hMatrixConcat2()
   write(*,*) test_matrixEquality(AB, AB2)
 
 end subroutine test_hMatrixConcat2
+
+subroutine test_kronProd()
+  use types
+  implicit none
+
+  integer :: i, j
+  type(matrix) :: A, B, kpCalc, kp
+
+  call allocMatrixType(A,2,2)
+  call allocMatrixType(B,2,2)
+  call allocMatrixType(kp,4,4)
+
+  A%mat(:,:) = reshape([1, 2, 3, 4], [2,2])
+  B%mat(:,:) = reshape([0, 5, 6, 7], [2,2])
+  kp%mat(:,:) = reshape([0, 5, 0, 10, &
+                         6, 7, 12, 14, &
+                         0, 15, 0, 20, &
+                         18, 21, 24, 28], [4,4])
+
+  call kronProd(A, B, kpCalc)
+  write(*,*) test_matrixEquality(kp, kpCalc)
+
+end subroutine test_kronProd
 
 
 
