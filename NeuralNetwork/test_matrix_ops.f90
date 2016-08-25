@@ -3,67 +3,17 @@ program test
   use types
   implicit none
 
-  real, allocatable :: mm(:,:)
-  integer :: rr, cc, i, j, correct, total
-  rr = 2
-  cc = 3
-
-  call allocMatrix2D(mm, rr, cc)
-  call test_hMatrixConcat()
   call test_hMatrixConcat2()
   call test_kronProd()
 
 
-
 contains
-
-subroutine test_hMatrixConcat()
-  use types
-  implicit none
-  real, allocatable :: A(:,:), B(:,:)
-  real, allocatable :: C(:,:)
-  integer :: rowsA, rowsB, rowsC, colsA, colsB, colsC, i, j
-
-  allocate( A(2,3), B(2,3), C(2,6) )
-
-  rowsA = size(A,1)
-  rowsB = size(B,1)
-  rowsC = rowsA
-  colsA = size(A,2)
-  colsB = size(B,2)
-  colsC = colsA + colsB
-
-  do i = 1,2
-    do j = 1,3
-      A(i,j) = i*6 + j - 6
-      B(i,j) = i*6 + j - 3
-    end do
-  end do
-
-  ! do i=1,2
-  !   do j=1,6
-  !     write(*,*) C(i,j)
-  !   end do
-  ! end do
-
-  call hMatrixConcat(A, rowsA, colsA, B, rowsB, colsB, C, rowsC, colsC)
-
-  ! do i=1,2
-  !   do j=1,6
-  !     write(*,*) C(i,j)
-  !   end do
-  ! end do
-
-  deallocate( A, B, C )
-end subroutine test_hMatrixConcat
 
 subroutine test_hMatrixConcat2()
   use types
   implicit none
   type(matrix) :: A, B, AB, AB2
   integer :: r, c, i, j
-
-
 
   r = 2
   c = 2
@@ -82,19 +32,17 @@ subroutine test_hMatrixConcat2()
   AB2%mat(1,:) = [2,3,12,13]
   AB2%mat(2,:) = [3,4,13,14]
 
-
   call hMatrixConcat2(A, B, AB)
-
-  ! do j=1,AB%cols
-  !   do i=1,AB%rows
-  !     write(*,*) AB%mat(i,j)
-  !     write(*,*) AB2%mat(i,j)
-  !   end do
-  ! end do
 
   write(*,*) test_matrixEquality(AB, AB2)
 
+  call deallocMatrixType(A)
+  call deallocMatrixType(B)
+  call deallocMatrixType(AB)
+  call deallocMatrixType(AB2)
+
 end subroutine test_hMatrixConcat2
+
 
 subroutine test_kronProd()
   use types
@@ -116,6 +64,11 @@ subroutine test_kronProd()
 
   call kronProd(A, B, kpCalc)
   write(*,*) test_matrixEquality(kp, kpCalc)
+
+  call deallocMatrixType(A)
+  call deallocMatrixType(B)
+  call deallocMatrixType(kp)
+  call deallocMatrixType(kpCalc)
 
 end subroutine test_kronProd
 
