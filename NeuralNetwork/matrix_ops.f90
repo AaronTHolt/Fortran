@@ -108,7 +108,7 @@ subroutine kronProd(A, B, kp)
   type(matrix), intent(in) :: A, B
   type(matrix), intent(inout) :: kp
   ! type(matrix) :: temp
-  integer :: ai, aj, bi, bj
+  integer :: ai, aj, bi, bj, i, j
 
   ! call allocMatrixType(temp, B%rows, B%cols)
 
@@ -121,8 +121,8 @@ subroutine kronProd(A, B, kp)
   do aj=1,A%cols
     do ai=1,A%rows
       ! Loop over B
-      do bj=1:B%cols
-        do bi=1:B%rows
+      do bj=1,B%cols
+        do bi=1,B%rows
           i = (ai-1)*B%rows + bi
           j = (aj-1)*B%cols + bj
           kp%mat(i,j) = A%mat(ai,aj)*B%mat(bi,bj)
@@ -131,7 +131,7 @@ subroutine kronProd(A, B, kp)
     end do
   end do
 
-end subroutine kronProd()
+end subroutine kronProd
 
 
 end module
