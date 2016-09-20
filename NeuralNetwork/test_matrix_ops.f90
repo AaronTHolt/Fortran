@@ -33,7 +33,6 @@ subroutine test_hMatrixConcat2()
   AB2%mat(2,:) = [3,4,13,14]
 
   call hMatrixConcat2(A, B, AB)
-
   write(*,*) test_matrixEquality(AB, AB2)
 
   call deallocMatrixType(A)
@@ -48,7 +47,6 @@ subroutine test_kronProd()
   use types
   implicit none
 
-  integer :: i, j
   type(matrix) :: A, B, kpCalc, kp
 
   call allocMatrixType(A,2,2)
