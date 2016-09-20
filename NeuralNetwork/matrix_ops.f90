@@ -38,7 +38,8 @@ subroutine hMatrixConcat2(A, B, C)
   implicit none
 
   type(matrix), intent(in) :: A, B
-  type(matrix), intent(inout) :: C
+  !!type(matrix), intent(inout) :: C
+  type(matrix), intent(out) :: C
   integer :: i, j
 
   ! C metadata
