@@ -1,0 +1,31 @@
+#makes the test_read_iris program
+
+#Macros
+Comp = ifort
+#FFlAGS = -O2
+
+FFLAGS = -static -g -O0 -CB -traceback -warn all
+objects = test_read_iris.o read_iris_data.o
+
+#makefile
+test : $(objects)
+	ifort -o test $(objects)
+
+test_read_iris.o : test_read_iris.f90 read_iris_data.mod
+	$(Comp) $(FFLAGS) -c test_read_iris.f90
+
+read_iris_data.mod : read_iris_data.f90 read_iris_data.o
+	$(Comp) $(FFLAGS) -c read_iris_data.f90
+
+read_iris_data.o : read_iris_data.f90 types.mod
+	$(Comp) $(FFLAGS) -c read_iris_data.f90
+
+types.mod : types.f90 types.o
+	$(Comp) $(FFLAGS) -c types.f90
+
+types.o : types.f90
+	$(Comp) $(FFLAGS) -c types.f90
+
+clean:
+	rm -f test read_iris_data.mod types.mod
+	rm -f $(objects)
