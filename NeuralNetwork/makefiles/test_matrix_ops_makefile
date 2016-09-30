@@ -10,10 +10,10 @@ Comp = ifort
 #FFLAGS = -O2
 # INTEL: To compile with debug options. CB=check bounds
 FFLAGS = -static -g -O0 -CB -traceback -warn all
-objects = test_matrix_ops.o matrix_ops.o types.o
+objects = test_mo.o test_matrix_ops.o matrix_ops.o types.o
 
 #makefile
-test_mo : $(objects)
+test_mo.o : $(objects)
 	ifort -o $@ $(objects)
 
 test_matrix_ops.o : $(TEST_SRC)test_matrix_ops.f90 matrix_ops.mod
@@ -32,5 +32,5 @@ types.o : $(SRC)types.f90
 	$(Comp) $(FFLAGS) -c $<
 
 clean:
-	rm -f test_mo matrix_ops.mod types.mod
+	rm -f matrix_ops.mod types.mod
 	rm -f $(objects)
