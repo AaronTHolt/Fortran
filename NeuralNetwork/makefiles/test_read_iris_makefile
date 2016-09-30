@@ -1,37 +1,38 @@
 #makes the test_read_iris program
 
-INCDIRS = -I../
+TEST_SRC=test/
+SRC=src/
 
 #Macros
 Comp = ifort
 #FFlAGS = -O2 -g $(INCDIRS)
 
 
-FFLAGS = -static -g -O0 -CB -traceback -warn all -g $(INCDIRS)
-objects = test_read_iris.o read_iris_data.o
+FFLAGS = -static -g -O0 -CB -traceback -warn all
+objects = test_read_iris.o read_iris_data.o types.o
 
 
 
 
 #makefile
-test_ri : $(objects)
-	ifort -o test_ri $(objects)
+test_ri.o : $(objects)
+	ifort -o $@ $(objects)
 
-test_read_iris.o : test_read_iris.f90 read_iris_data.mod
-	$(Comp) $(FFLAGS) -c test_read_iris.f90
+test_read_iris.o : $(TEST_SRC)test_read_iris.f90 read_iris_data.mod
+	$(Comp) $(FFLAGS) -c $<
 
-read_iris_data.mod : read_iris_data.f90 read_iris_data.o
-	$(Comp) $(FFLAGS) -c read_iris_data.f90
+read_iris_data.mod : $(SRC)read_iris_data.f90 read_iris_data.o
+	$(Comp) $(FFLAGS) -c $<
 
-read_iris_data.o : read_iris_data.f90 types.mod
-	$(Comp) $(FFLAGS) -c read_iris_data.f90
+read_iris_data.o : $(SRC)read_iris_data.f90 types.mod
+	$(Comp) $(FFLAGS) -c $<
 
-types.mod : types.f90 types.o
-	$(Comp) $(FFLAGS) -c types.f90
+types.mod : $(SRC)types.f90 types.o
+	$(Comp) $(FFLAGS) -c $<
 
-types.o : types.f90
-	$(Comp) $(FFLAGS) -c types.f90
+types.o : $(SRC)types.f90
+	$(Comp) $(FFLAGS) -c $<
 
 clean:
-	rm -f test read_iris_data.mod types.mod
-	rm -f $(objects)
+	rm -f read_iris_data.mod types.mod
+	rm -f $(objects) test_ri.o

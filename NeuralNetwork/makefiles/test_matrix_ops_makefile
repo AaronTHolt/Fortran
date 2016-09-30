@@ -3,14 +3,12 @@
 #Macros
 TEST_SRC=test/
 SRC=src/
-INCDIRS= -I$(TEST_SRC) -I$(SRC)
-
 
 Comp = ifort
 #FFLAGS = -O2
 # INTEL: To compile with debug options. CB=check bounds
 FFLAGS = -static -g -O0 -CB -traceback -warn all
-objects = test_mo.o test_matrix_ops.o matrix_ops.o types.o
+objects = test_matrix_ops.o matrix_ops.o types.o
 
 #makefile
 test_mo.o : $(objects)
@@ -33,4 +31,4 @@ types.o : $(SRC)types.f90
 
 clean:
 	rm -f matrix_ops.mod types.mod
-	rm -f $(objects)
+	rm -f $(objects) test_mo.o
