@@ -14,22 +14,22 @@ objects = test_matrix_ops.o matrix_ops.o types.o
 
 #makefile
 test_mo : $(objects)
-	ifort -o test_mo $(objects)
+	ifort -o $@ $(objects)
 
 test_matrix_ops.o : $(TEST_SRC)test_matrix_ops.f90 matrix_ops.mod
-	$(Comp) $(FFLAGS) -c $(TEST_SRC)test_matrix_ops.f90
+	$(Comp) $(FFLAGS) -c $<
 
 matrix_ops.mod : $(SRC)matrix_ops.f90 matrix_ops.o
-	$(Comp) $(FFLAGS) -c $(SRC)matrix_ops.f90
+	$(Comp) $(FFLAGS) -c $<
 
 matrix_ops.o : $(SRC)matrix_ops.f90 types.mod
-	$(Comp) $(FFLAGS) -c $(SRC)matrix_ops.f90
+	$(Comp) $(FFLAGS) -c $<
 
 types.mod : $(SRC)types.f90 types.o
-	$(Comp) $(FFLAGS) -c $(SRC)types.f90
+	$(Comp) $(FFLAGS) -c $<
 
 types.o : $(SRC)types.f90
-	$(Comp) $(FFLAGS) -c $(SRC)types.f90
+	$(Comp) $(FFLAGS) -c $<
 
 clean:
 	rm -f test_mo matrix_ops.mod types.mod
