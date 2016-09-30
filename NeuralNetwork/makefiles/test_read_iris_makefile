@@ -1,15 +1,21 @@
 #makes the test_read_iris program
 
+INCDIRS = -I../
+
 #Macros
 Comp = ifort
-#FFlAGS = -O2
+#FFlAGS = -O2 -g $(INCDIRS)
 
-FFLAGS = -static -g -O0 -CB -traceback -warn all
+
+FFLAGS = -static -g -O0 -CB -traceback -warn all -g $(INCDIRS)
 objects = test_read_iris.o read_iris_data.o
 
+
+
+
 #makefile
-test : $(objects)
-	ifort -o test $(objects)
+test_ri : $(objects)
+	ifort -o test_ri $(objects)
 
 test_read_iris.o : test_read_iris.f90 read_iris_data.mod
 	$(Comp) $(FFLAGS) -c test_read_iris.f90
