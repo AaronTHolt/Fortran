@@ -1,31 +1,36 @@
 #makes the test_matrix_ops program
 
 #Macros
+TEST_SRC=test/
+SRC=src/
+INCDIRS= -I$(TEST_SRC) -I$(SRC)
+
+
 Comp = ifort
 #FFLAGS = -O2
 # INTEL: To compile with debug options. CB=check bounds
 FFLAGS = -static -g -O0 -CB -traceback -warn all
-objects = test_matrix_ops.o matrix_ops.o
+objects = test_matrix_ops.o matrix_ops.o types.o
 
 #makefile
-test : $(objects)
-	ifort -o test $(objects)
+test_mo : $(objects)
+	ifort -o test_mo $(objects)
 
-test_matrix_ops.o : test_matrix_ops.f90 matrix_ops.mod
-	$(Comp) $(FFLAGS) -c test_matrix_ops.f90
+test_matrix_ops.o : $(TEST_SRC)test_matrix_ops.f90 matrix_ops.mod
+	$(Comp) $(FFLAGS) -c $(TEST_SRC)test_matrix_ops.f90
 
-matrix_ops.mod : matrix_ops.f90 matrix_ops.o
-	$(Comp) $(FFLAGS) -c matrix_ops.f90
+matrix_ops.mod : $(SRC)matrix_ops.f90 matrix_ops.o
+	$(Comp) $(FFLAGS) -c $(SRC)matrix_ops.f90
 
-matrix_ops.o : matrix_ops.f90 types.mod
-	$(Comp) $(FFLAGS) -c matrix_ops.f90
+matrix_ops.o : $(SRC)matrix_ops.f90 types.mod
+	$(Comp) $(FFLAGS) -c $(SRC)matrix_ops.f90
 
-types.mod : types.f90 types.o
-	$(Comp) $(FFLAGS) -c types.f90
+types.mod : $(SRC)types.f90 types.o
+	$(Comp) $(FFLAGS) -c $(SRC)types.f90
 
-types.o : types.f90
-	$(Comp) $(FFLAGS) -c types.f90
+types.o : $(SRC)types.f90
+	$(Comp) $(FFLAGS) -c $(SRC)types.f90
 
 clean:
-	rm -f test matrix_ops.mod types.mod
+	rm -f test_mo matrix_ops.mod types.mod
 	rm -f $(objects)
