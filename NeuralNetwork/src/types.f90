@@ -10,7 +10,7 @@ module types
 
   !! s = sepal, p = petal
   !! t1,t2,t3 combine to make species type
-  type iris_data
+  type iris_row
     real :: s_len, s_wid, p_len, p_wid
     integer :: t1, t2, t3
   end type iris_row
