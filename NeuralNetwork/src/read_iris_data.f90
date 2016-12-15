@@ -37,4 +37,21 @@ integer function get_file_length(filepath) result(y)
 
 end function get_file_length
 
+subroutine read_iris(filepath, i_data)
+  !!
+  use types
+  implicit none
+  type(iris_data), allocatable, intent(inout) :: i_data(:)
+  integer :: file_len, i, reason
+  character(*), intent(in) :: filepath
+
+  file_len = get_file_length(filepath)
+
+  !! Allocate space for data
+
+  !! Read in data
+  ! do i=1:file_len
+  !   read(*,*,iostat=reason)
+end subroutine read_iris
+
 end module read_iris_data
