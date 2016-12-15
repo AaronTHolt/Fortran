@@ -38,7 +38,9 @@ integer function get_file_length(filepath) result(y)
 end function get_file_length
 
 subroutine read_iris(filepath, file_len, i_data)
-  !!
+  !! should make idata a matrix_real matrix_int
+  !! Read in data from any of the 3 iris data files
+  !! Format of files is s_len,s_wid,p_len,p_wid,t1,t2,t3
   use types
   implicit none
   type(iris_row), allocatable, intent(inout) :: i_data(:)

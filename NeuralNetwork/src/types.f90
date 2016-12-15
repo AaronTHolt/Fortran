@@ -8,6 +8,12 @@ module types
     integer :: cols
   end type matrix
 
+  type matrix_int
+    integer, allocatable :: mat(:,:)
+    integer :: rows
+    integer :: cols
+  end type matrix_int
+
   !! s = sepal, p = petal
   !! t1,t2,t3 combine to make species type
   type iris_row
