@@ -1,7 +1,7 @@
 #makes the test_matrix_ops program
 
 #Macros
-TEST_SRC=test/
+TEST_SRC=tests/
 SRC=src/
 
 Comp = ifort

@@ -1,6 +1,6 @@
 #makes the test_read_iris program
 
-TEST_SRC=test/
+TEST_SRC=tests/
 SRC=src/
 
 #Macros
