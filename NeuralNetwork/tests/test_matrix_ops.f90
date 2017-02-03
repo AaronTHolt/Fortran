@@ -5,6 +5,7 @@ program test
 
   call test_hMatrixConcat2()
   call test_kronProd()
+  call test_class_conversion()
 
 
 contains
@@ -135,7 +136,35 @@ integer function test_matrixEquality(A, B, optTol) result(y)
   return
 end function test_matrixEquality
 
+subroutine test_class_conversion()
+  ! Testing class_to_output and output_to_class
+  integer :: class_any, class1, class2, class3
+  integer :: output_any(3), output1(3), output2(3), output3(3)
+  class_any = 0
+  class1 = 1
+  class2 = 2
+  class3 = 3
+  output_any(:) = (/ 0, 0, 0 /)
+  output1(:) = (/ 1, 0, 0 /)
+  output2(:) = (/ 0, 1, 0 /)
+  output3(:) = (/ 0, 0, 1 /)
 
+
+  call class_to_output(output_any, class1)
+  if (ALL(output_any - output1 < 0.001)) then
+    write(*,*) "T"
+  else
+    write(*,*) "F"
+  end if
+
+  call output_to_class(output3, class_any)
+  if (class_any == class3) then
+    write(*,*) "T"
+  else
+    write(*,*) "F"
+  end if
+
+end subroutine test_class_conversion
 
 
 
