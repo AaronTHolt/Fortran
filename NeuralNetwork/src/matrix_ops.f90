@@ -129,4 +129,60 @@ subroutine kronProd(A, B, kp)
 end subroutine kronProd
 
 
+subroutine output_to_class(output, class)
+  ! Takes an output and converts it to a class
+  ! 1 0 0 -> 1,  0 1 0 -> 2, 0 0 1 -> 3
+  implicit none
+  integer, intent(in) :: output(3)
+  integer, intent(inout) :: class
+
+  if (output(1) == 1) then
+     class = 1
+  else if (output(2) == 1) then
+    class = 2
+  else if (output(3) == 1) then
+    class = 3
+  else
+    write(*,*) "Invalid output"
+  end if
+
+end subroutine output_to_class
+
+
+subroutine class_to_output(output, class)
+  ! Takes a class and converts it to an output
+  ! 1 0 0 <- 1,  0 1 0 <- 2, 0 0 1 <- 3
+  implicit none
+  integer, intent(inout) :: output(3)
+  integer, intent(in) :: class
+
+  if (class == 1) then
+    output(:) = (/ 1, 0, 0 /)
+  else if (class == 2) then
+    output(:) = (/ 0, 1, 0 /)
+  else if (class == 3) then
+    output(:) = (/ 0, 0, 1 /)
+  else
+    write(*,*) "No class or invalid class provided"
+  end if
+end subroutine class_to_output
+
 end module
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+!
