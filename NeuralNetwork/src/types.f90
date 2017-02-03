@@ -15,10 +15,11 @@ module types
   end type matrix_int
 
   !! s = sepal, p = petal
-  !! t1,t2,t3 combine to make species type
+  !! output(1),output(2),output(3) combine to make species type
   type iris_row
     real :: s_len, s_wid, p_len, p_wid
-    integer :: t1, t2, t3
+    integer :: output(3)
+    integer :: class = 0
   end type iris_row
 
 end module
