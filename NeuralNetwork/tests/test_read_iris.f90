@@ -26,11 +26,11 @@ contains
 
     write(*,*) "First Line :", (i_data(1)%s_len==0.813331), (i_data(1)%s_wid==0.692682), &
                     (i_data(1)%p_len==0.854032), (i_data(1)%p_wid==0.975), &
-                    (i_data(1)%t1==0), (i_data(1)%t2==0), (i_data(1)%t3==1)
+                    (i_data(1)%output(1)==0), (i_data(1)%output(2)==0), (i_data(1)%output(3)==1)
 
     write(*,*) "Last Line :", (i_data(fileLength)%s_len==0.744044), (i_data(fileLength)%s_wid==0.551523), &
                     (i_data(fileLength)%p_len==0.793548), (i_data(fileLength)%p_wid==0.901998), &
-                    (i_data(fileLength)%t1==0), (i_data(fileLength)%t2==0), (i_data(fileLength)%t3==1)
+                    (i_data(fileLength)%output(1)==0), (i_data(fileLength)%output(2)==0), (i_data(fileLength)%output(3)==1)
 
 
   end subroutine test_read_iris
